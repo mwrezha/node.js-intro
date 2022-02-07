@@ -121,3 +121,73 @@ Node.js comes with some great internal modules. You can think of them as like th
 - `http` - interact with OS level networking. Useful for creating servers.
 
 You can read more about the module syntax on the [Node.js docs](https://nodejs.org/api/packages.html).
+
+# File System
+There is no good way to access the file system on a machine with JavaScript, this is due to security limitations in most browsers. With Node.js, one can create, edit, remotely, read, stream & more with files.
+
+## Reading a file
+Node.js ships with a powerful module, `fs` short for file system. There are many methods on the [fs module](https://nodejs.org/api/fs.html). To read a file, we'll use the `readFile` method.
+
+Create a simple html file `template.html`.
+```
+// template.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>{title}</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <p>{body}</p>
+</body>
+</html>
+```
+This `html` file will be used as template and has placeholders that we will interpolate later when writing a file.
+
+To read the file:
+
+```
+// index.mjs
+import { readFile } from 'fs/promises';
+
+let template = await readFile(new URL('./template.html', import.meta.url), 'utf-8');
+```
+The `fs` module has import for promise based methods. We'll opt to use those as they have a cleaner API and using async + non-blocking methods are preferred. More on that later. Because we're using `.mjs` files, we don't have access to `__dirname` or `__filename` which is what is normally used in combination with the `path` module to form an appropiate file path for fs. So we have to use the `URL` global that takes a relative path and a base path and will create a URL object that is accepted by `readFile`. If you were to log `template`, you'd see that its just a string. as you wrote in `template.html`
+
+## Write a file
+Writing a file is similar to reading a file, except you need some content to place in the file. Let's interpolate the variables inside our template string and write the final html string back to disk.
+```
+// index.mjs
+import { readFile, writeFile } from 'fs/promises';
+
+let template = await readFile(new URL('./template.html', import.meta.url), 'utf-8');
+
+const data = {
+  title: 'My Node.js',
+  body: 'I wrote this file to disk using node'
+};
+
+for (const [key, val] of Object.entries(data)) {
+  template = template.replace(`{${key}}`, val);
+};
+
+await writeFile(new URL('./index.html', import.meta.url), template);
+```
+You should now have a `index.html` file that is the same as the `template.html` file but with the title and body text substituted with the data object properties.
+```
+// index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>My Node.js</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+  <p>I wrote this file to disk using node</p>
+</body>
+</html>
+```
