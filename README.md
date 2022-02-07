@@ -35,6 +35,7 @@ Node.js comes with some practical globals for us to use in our applications.
 - `exports` `module` `require` These globals are used for creating and exposing modules throughout your app. We'll get to modules in a second
 
 Try out, write console log on file `console.log(process)`.
+
 ```
 > node index.js
 process {
@@ -45,6 +46,78 @@ process {
 
     ....
 
+  }
+}
 ```
 
 Depending on what version on Node.js you're running, there are so many more globals. Not as many as the Browser, but enough that you'll probably never use many of them. Check them out [here](https://nodejs.org/api/globals.html).
+
+# Modules
+
+A module is a reusable chunk of code that has its own context. That way modules can't interfere with or polute the global scope.
+
+## Two module types
+
+By default, Node.js uses common js modules. With newer versions of Node.js we can now take advantage of ES6 modules. To opt into using this syntax, you can use the `.mjs` extension instead of `.js`. We'll be using the ES6 module syntax going forward as they are the standard now with browsers adding support now.
+
+### Module syntax
+
+CommonJS modules is what's been the standard for Node.js for quite some time, it's what ships with Node.js, it's the default module syntax for Node.js.
+
+```
+// utils.js
+const hello = () => {
+  console.log('hello, this is modules');
+};
+
+module.exports = hello;
+```
+
+```
+// app.js
+const hello = require('./utils'); 
+
+hello();
+```
+
+```
+> node app.js
+hello, this is modules
+```
+
+But we're gonna use the newer one because that's the future of Node.js, it's the future of the browsers. How do we make it to JavaScript is truly universal across environments?
+
+So with the latest module syntax that's been adopted by the JavaScript ecosystem for quite some time now? And that's gonna be called the ES modules or ECMAScript modules.
+
+ECMAScript modules are [the official standard](https://tc39.es/ecma262/#sec-modules) format to package JavaScript code for reuse. Modules are defined using a variety of [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) statements.
+
+The following example of an ES module export and import function:
+```
+// utils.mjs
+export const hello = () => {
+  console.log('hello, this is modules');
+};
+```
+
+```
+// app.mjs
+import { hello } from "./utils.mjs";
+
+hello();
+```
+
+```
+> node app.mjs
+hello, this is modules
+```
+
+### Internal Modules
+
+Node.js comes with some great internal modules. You can think of them as like the phenonminal global APIs in the browser. Here are some of the most useful ones:
+
+- `fs` - useful for interacting with the file system.
+- `path` - lib to assit with manipulating file paths and all their nuiances.
+- `child_process` - spawn subprocesses in the background.
+- `http` - interact with OS level networking. Useful for creating servers.
+
+You can read more about the module syntax on the [Node.js docs](https://nodejs.org/api/packages.html).
