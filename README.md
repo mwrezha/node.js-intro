@@ -64,7 +64,7 @@ By default, Node.js uses common js modules. With newer versions of Node.js we ca
 
 CommonJS modules is what's been the standard for Node.js for quite some time, it's what ships with Node.js, it's the default module syntax for Node.js.
 
-```
+```sh
 // utils.js
 const hello = () => {
   console.log('hello, this is modules');
@@ -73,7 +73,7 @@ const hello = () => {
 module.exports = hello;
 ```
 
-```
+```sh
 // app.js
 const hello = require('./utils'); 
 
@@ -92,14 +92,14 @@ So with the latest module syntax that's been adopted by the JavaScript ecosystem
 ECMAScript modules are [the official standard](https://tc39.es/ecma262/#sec-modules) format to package JavaScript code for reuse. Modules are defined using a variety of [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) statements.
 
 The following example of an ES module export and import function:
-```
+```sh
 // utils.mjs
 export const hello = () => {
   console.log('hello, this is modules');
 };
 ```
 
-```
+```sh
 // app.mjs
 import { hello } from "./utils.mjs";
 
@@ -129,7 +129,7 @@ There is no good way to access the file system on a machine with JavaScript, thi
 Node.js ships with a powerful module, `fs` short for file system. There are many methods on the [fs module](https://nodejs.org/api/fs.html). To read a file, we'll use the `readFile` method.
 
 Create a simple html file `template.html`.
-```
+```sh
 // template.html
 <!DOCTYPE html>
 <html lang="en">
@@ -148,7 +148,7 @@ This `html` file will be used as template and has placeholders that we will inte
 
 To read the file:
 
-```
+```sh
 // index.mjs
 import { readFile } from 'fs/promises';
 
@@ -158,7 +158,7 @@ The `fs` module has import for promise based methods. We'll opt to use those as 
 
 ## Write a file
 Writing a file is similar to reading a file, except you need some content to place in the file. Let's interpolate the variables inside our template string and write the final html string back to disk.
-```
+```sh
 // index.mjs
 import { readFile, writeFile } from 'fs/promises';
 
@@ -176,7 +176,7 @@ for (const [key, val] of Object.entries(data)) {
 await writeFile(new URL('./index.html', import.meta.url), template);
 ```
 You should now have a `index.html` file that is the same as the `template.html` file but with the title and body text substituted with the data object properties.
-```
+```sh
 // index.html
 <!DOCTYPE html>
 <html lang="en">
