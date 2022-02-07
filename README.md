@@ -92,6 +92,7 @@ So with the latest module syntax that's been adopted by the JavaScript ecosystem
 ECMAScript modules are [the official standard](https://tc39.es/ecma262/#sec-modules) format to package JavaScript code for reuse. Modules are defined using a variety of [import](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) and [export](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) statements.
 
 The following example of an ES module export and import function:
+
 ```js
 // utils.mjs
 export const hello = () => {
@@ -123,14 +124,17 @@ Node.js comes with some great internal modules. You can think of them as like th
 You can read more about the module syntax on the [Node.js docs](https://nodejs.org/api/packages.html).
 
 # File System
+
 There is no good way to access the file system on a machine with JavaScript, this is due to security limitations in most browsers. With Node.js, one can create, edit, remotely, read, stream & more with files.
 
 ## Reading a file
+
 Node.js ships with a powerful module, `fs` short for file system. There are many methods on the [fs module](https://nodejs.org/api/fs.html). To read a file, we'll use the `readFile` method.
 
 Create a simple html file `template.html`.
+
 ```html
-// template.html
+<!-- template.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -144,6 +148,7 @@ Create a simple html file `template.html`.
 </body>
 </html>
 ```
+
 This `html` file will be used as template and has placeholders that we will interpolate later when writing a file.
 
 To read the file:
@@ -154,10 +159,13 @@ import { readFile } from 'fs/promises';
 
 let template = await readFile(new URL('./template.html', import.meta.url), 'utf-8');
 ```
+
 The `fs` module has import for promise based methods. We'll opt to use those as they have a cleaner API and using async + non-blocking methods are preferred. More on that later. Because we're using `.mjs` files, we don't have access to `__dirname` or `__filename` which is what is normally used in combination with the `path` module to form an appropiate file path for fs. So we have to use the `URL` global that takes a relative path and a base path and will create a URL object that is accepted by `readFile`. If you were to log `template`, you'd see that its just a string. as you wrote in `template.html`
 
 ## Write a file
+
 Writing a file is similar to reading a file, except you need some content to place in the file. Let's interpolate the variables inside our template string and write the final html string back to disk.
+
 ```js
 // index.mjs
 import { readFile, writeFile } from 'fs/promises';
@@ -175,9 +183,11 @@ for (const [key, val] of Object.entries(data)) {
 
 await writeFile(new URL('./index.html', import.meta.url), template);
 ```
+
 You should now have a `index.html` file that is the same as the `template.html` file but with the title and body text substituted with the data object properties.
+
 ```html
-// index.html
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
