@@ -297,3 +297,66 @@ Finally, if you just can't catch those pesky errors for any reason. Maybe some l
 ```js
 process.on('uncaughtException', cb)
 ```
+
+# Package
+There are millions of node projects ready to be installed and consumed by your application. These projects are called packages. A package can have several modules and other packages. Node.js has built in support for these packages so you can take advantage of them at any time.
+
+To convert our application into a package. We can use a CLI called `npm`. NPM is already installed when you install Node.js, run: `npm init`
+
+```sh
+> npm init
+This utility will walk you through creating a package.json file.
+It only covers the most common items, and tries to guess sensible defaults.
+
+See `npm help init` for definitive documentation on these fields
+and exactly what they do.
+
+Use `npm install <pkg>` afterwards to install a package and
+save it as a dependency in the package.json file.
+
+Press ^C at any time to quit.
+package name: (node.js-intro) app
+version: (1.0.0) 
+description: 
+entry point: (index.js) 
+test command: 
+git repository: (https://github.com/mwrezha/node.js-intro.git) 
+keywords: 
+author: 
+license: (ISC) 
+About to write to /Users/rezha/Documents/Course/node.js-intro/package.json:
+
+{
+  "name": "app",
+  "version": "1.0.0",
+  "description": "## For Windows",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mwrezha/node.js-intro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mwrezha/node.js-intro/issues"
+  },
+  "homepage": "https://github.com/mwrezha/node.js-intro#readme"
+}
+
+
+Is this OK? (yes) yes
+
+```
+
+This will initialize the new package by walking you through some instructions. Once done, you will have a `package.json` file in the root of your document
+
+Of course we can also do this by writing our own package.json without using the CLI that's really cool, but it's really better to use the npm CLI
+
+There are some important NPM commands ones that you will use repeatedly.
+
+- `npm install` - installs given module(s)
+- `npm test` - runs the `test` script in package.json
+- `npm uninstall` - will uninstall a give package
