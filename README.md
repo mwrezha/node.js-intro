@@ -360,3 +360,27 @@ There are some important NPM commands ones that you will use repeatedly.
 - `npm install` - installs given module(s)
 - `npm test` - runs the `test` script in package.json
 - `npm uninstall` - will uninstall a give package
+
+For more [several commands](https://docs.npmjs.com/cli/v6/commands)
+
+## Finding and installing packages
+
+Search for the package you need on google or go to the [npm site](https://www.npmjs.com/) and search for what you need
+
+Once you click a package, you can see the documentation from the README.md and any links to Github or website. You can also see the author and the last time it was updated. All of this info is great to help with choosing a package to install. You never know what you're going to get. Once you know the package(s) you want to install. You can install as many packages with one command, you can do so with:
+
+```sh
+npm i package1 package2 package3 
+```
+Lets try with install eslint package
+```sh
+> npm i eslint
+
+added 83 packages, and audited 84 packages in 17s
+
+13 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+```
+

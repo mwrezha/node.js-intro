@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/mwrezha/node.js-intro/issues"
   },
-  "homepage": "https://github.com/mwrezha/node.js-intro#readme"
+  "homepage": "https://github.com/mwrezha/node.js-intro#readme",
+  "dependencies": {
+    "eslint": "^8.8.0"
+  }
 }
